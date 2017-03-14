@@ -1,0 +1,106 @@
+#!/usr/bin/conky -d -c
+#	.conkyrc configuration
+alignment top_right
+background yes
+border_margin 5
+border_width 5
+color0 555555			#
+color1 FCAF3E			# zolty
+# color2 64574e			# braz
+color2 0892B0			# Terminal text color
+color3 a82553			# rozowy f71f84
+color4 5e1014			# bordowy
+color5 64574e			# braz
+color6 a7a7a7			# szary
+color7 8888CC			#  (COOL)
+color8 9d9c61			# zolto-szary
+# color9 525276			# niebiesko-szary
+color8 64574e
+cpu_avg_samples 2
+default_color e1e1e1		# szary a7a7a7
+default_outline_color 000000 	# Black
+default_shade_color 000000	# Black
+double_buffer yes
+draw_borders no
+draw_graph_borders no
+draw_outline no
+draw_shades no
+gap_x 25
+gap_y 40
+max_specials 1024
+max_user_text 10000
+maximum_width 210
+minimum_size 850
+net_avg_samples 2
+no_buffers yes
+override_utf8_locale yes
+own_window yes
+own_window_colour 000000	# Black
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_transparent yes
+own_window_type override 	## normal
+pad_percents 2			# to co nizej, miejsc po przecinku
+short_units yes			# krotka wersja podawania wielkosci dyskow np. 612.21M/3.80G
+stippled_borders 3
+text_buffer_size 8000
+total_run_times 0
+update_interval 1.0
+uppercase no
+use_spacer right
+use_xft yes
+xftalpha 0.75
+xftfont sans:size=11
+
+#lua_load /home/didisoft/.conky/lua.lua
+
+
+TEXT
+${color2}${goto 10}${font DejaVu Sans Mono:size=35}${time %H}${font DejaVu Sans Mono:size=25}${voffset -10}:${time %M}${font DejaVu Sans Mono:size=15}${voffset -12}${time %S}
+${color2}${goto 80}${voffset 12}${font DejaVu Sans Mono:size=12}${time %A}
+${color2}${goto 80}${voffset 1}${font :size=12}${time %d %b %Y}
+${color}${voffset 25}${font DejaVu Sans Mono:size=11}${execpi 3600 DJS=`date +%_d`; cal -m | sed '1d' | sed '/./!d' | sed 's/$/                     /' | fold -w 21 | sed -n '/^.\{21\}/p' | sed 's/^/${alignc} /' | sed /" $DJS "/s/" $DJS "/" "'${color2}'"$DJS"'${color}'" "/}${font}
+
+${voffset -50}${color2}${font led:size=14}SYSTEM ${font}$hr
+${color}${sysname} Kernel: ${alignr}$kernel
+${color}Conky:${alignr}${conky_version}
+${color}Battery: ${alignr}${battery_percent BAT0}
+${color}Battery Remaining: ${alignr}$battery_time
+
+${voffset 0}${color2}${font led:size=14}CPU ${font}$hr
+${color}Temp:  ${execi 30 sensors | grep 'Core 0' | cut -c18-21} C  /  ${execi 30 sensors | grep 'Core 1' | cut -c18-21} C${color}${font}
+${color}CPU 1:  ${cpu cpu1}% $alignr ${freq_g (1)} GHz
+${color}CPU 2:  ${cpu cpu2}% 
+${color}CPU 3:  ${cpu cpu3}%
+${color}CPU 4:  ${cpu cpu4}% 
+
+${voffset 0}${color2}${font led:size=14}MEM ${font}$hr
+${color}ram:${goto 100}${mem} / ${memmax} ${alignr} ${memperc}%
+${color}${membar}
+
+${voffset 0}${color}${font}NAME ${goto 160}MEM%
+${color}${font :size=11}${goto 9}${top name 1}${goto 165}${top mem 1}
+${color}${font :size=11}${goto 9}${top name 2}${goto 165}${top mem 2}
+${color}${font :size=11}${goto 9}${top name 3}${goto 165}${top mem 3}
+
+${voffset 0}${color2}${font led:size=14}HDD${font}$hr
+${color}swap:${goto 55} ${swap}   / ${swapmax} ${alignr} ${swapperc}%
+${color}root:${goto 55} ${fs_used /} / ${fs_size /} ${alignr} ${fs_used_perc /}%
+
+${voffset 0}${color2}${font led:size=14}Network${font}$hr
+${color}ESSID: ${alignr}${wireless_essid}
+${color}gateway IP: ${alignr}${gw_ip}
+${color}local IP: $alignr${addr wlp3s0}
+${color}public IP: $alignr${execi 60 ~/ip.sh}
+${voffset 15}${font}${color}${voffset -12}${goto 10}Down: $alignr${downspeed wlp3s0}kb/s ${color}
+#${goto 50}Day: ${totaldown enpos3}${voffset -12}${alignr}${downspeedgraph enp0s3 25,50 64574e 64574e}
+${voffset 15}${font}${color}${voffset -12}${goto 10}Up: $alignr${upspeed wlp3s0}kb/s ${color}
+
+#${color}${goto 10}${font pizzadude bullets:size=16}U${font}$color${voffset -12}${goto 50}Up: ${upspeed wlp3s0}kb/s${color}
+#${goto 50}Day: ${totalup wlp3s0}${voffset -12}${alignr}${upspeedgraph wlp3s0 25,50 64574e 64574e}
+
+
+#${color2}${if_mpd_playing}${font led:size=14}MPD ${font}${mpd_status} $hr
+#${color}${alignc}${mpd_artist} - "${mpd_title}"
+#${color}${alignc}${mpd_album}
+#${color}${alignc}${mpd_bar 3,150}
+#${color}${alignc}${mpd_elapsed}/${mpd_length}${endif}
