@@ -1,0 +1,26 @@
+
+# start taskbar
+tint2 &
+
+# start network manager applet for task bar
+nm-applet &
+
+# start volume applet for task bar
+volctl &
+
+# start launcher
+synapse -s &
+
+# start compositor
+compton -b &
+
+sleep 1
+
+# start wallpaper
+nitrogen --restore &
+
+# start conky
+conky &
+
+# start Telegram
+~/bin/Telegram/Telegram -startintray &
